@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Portfólio de Mateus Fernandes: trajetória, tecnologias e projetos de desenvolvimento.">
+  <title th:text="${nome} + ' | Portfólio'">Mateus Fernandes | Portfólio</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script defer th:src="@{/js/script.js}"></script>
+</head>
+
+<body>
+  <a class="skip" href="#inicio">Pular para o conteúdo</a>
+  <header class="header">
+    <a class="brand" th:href="@{/}" aria-label="Mateus Fernandes, início">mf<span>.</span></a>
+    <nav aria-label="Navegação principal"><a href="#sobre">Sobre mim</a><a href="#projetos">Projetos</a><a
+        href="#contato">Contato ↗</a></nav>
+    <button class="theme" type="button" aria-label="Ativar tema claro" aria-pressed="false" hidden>◐</button>
+  </header>
+  <main id="inicio">
+    <section class="hero wrap" aria-labelledby="titulo">
+      <div>
+        <p class="eyebrow"><span class="dot"></span> DESENVOLVIMENTO & APRENDIZADO</p>
+        <h1 id="titulo">Olá, eu sou<br><span th:text="${nome}">Mateus Fernandes</span><span class="accent">.</span></h1>
+        <p class="lead">Ideias ganham forma.<br>Código abre possibilidades.</p>
+        <p class="hero-description">Estudante de Sistemas de Informação, apaixonado por tecnologia e por construir
+          soluções para a web.</p>
+        <div class="actions"><a class="button primary" href="#projetos">Conheça meus projetos ↗</a><a class="text-link"
+            href="#contato">Vamos conversar →</a></div>
+      </div>
+      <div class="portrait">
+        <div class="photo-frame"><img th:src="@{/imagens/perfil.jfif}" alt="Foto de Mateus Fernandes" width="420"
+            height="480"></div><span class="photo-label">Sempre aprendendo, sempre criando.</span><span class="code-tag"
+          aria-hidden="true">&lt;/&gt;</span>
+      </div>
+      <div class="hero-bottom"><span>PORTFÓLIO PESSOAL</span><a href="#sobre">Explore a página ↓</a><span>JAVA · WEB ·
+          TECNOLOGIA</span></div>
+    </section>
+    <section id="sobre" class="section wrap about" aria-labelledby="sobre-titulo">
+      <div>
+        <p class="eyebrow">01 / SOBRE MIM</p>
+        <h2 id="sobre-titulo">Curiosidade que<br>vira <em>construção.</em></h2>
+      </div>
+      <div>
+        <p class="about-text" th:text="${descricao}"></p>
+        <h3 class="small-title">TECNOLOGIAS QUE ESTUDO E UTILIZO</h3>
+        <ul class="skills">
+          <li th:each="habilidade : ${habilidades}" th:text="${habilidade}"></li>
+        </ul>
+      </div>
+    </section>
+    <section id="projetos" class="section wrap" aria-labelledby="projetos-titulo">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">02 / PROJETOS</p>
+          <h2 id="projetos-titulo">Aprendizado<br>colocado em prática<span class="accent">.</span></h2>
+        </div>
+        <p>Uma seleção dos meus projetos de aula.<br>Cada projeto, um novo passo.</p>
+      </div>
+      <nav class="filters" aria-label="Filtrar projetos"><a th:href="@{/projetos(categoria='todos')} + '#projetos'"
+          th:classappend="${categoriaAtiva == 'todos'} ? 'active'"
+          th:attr="aria-current=${categoriaAtiva == 'todos' ? 'true' : null}">Todos</a><a
+          th:href="@{/projetos(categoria='frontend')} + '#projetos'"
+          th:classappend="${categoriaAtiva == 'frontend'} ? 'active'"
+          th:attr="aria-current=${categoriaAtiva == 'frontend' ? 'true' : null}">Frontend</a><a
+          th:href="@{/projetos(categoria='backend')} + '#projetos'"
+          th:classappend="${categoriaAtiva == 'backend'} ? 'active'"
+          th:attr="aria-current=${categoriaAtiva == 'backend' ? 'true' : null}">Backend</a></nav>
+      <div class="projects">
+        <article class="project" th:each="projeto : ${projetos}">
+          <div class="project-art" th:classappend="${projeto.categoria()}"><span
+              th:text="${projeto.numero()}"></span><strong
+              th:text="${projeto.categoria() == 'backend' ? '{ API }' : '&lt;portfolio /&gt;'}"></strong><small
+              th:text="${projeto.categoria() == 'backend' ? 'ESTRUTURA · ROTAS · ORGANIZAÇÃO' : 'INTERFACE · ESTILO · IDENTIDADE'}"></small>
+          </div>
+          <div class="project-body">
+            <p class="eyebrow" th:text="${projeto.tecnologias()}"></p>
+            <h3 th:text="${projeto.titulo()}"></h3>
+            <p th:text="${projeto.descricao()}"></p><a class="text-link" th:href="${projeto.url()}" target="_blank"
+              rel="noopener noreferrer">Ver código no GitHub ↗<span class="sr-only"> (abre em nova aba)</span></a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section id="contato" class="contact wrap" aria-labelledby="contato-titulo">
+      <p class="eyebrow">03 / CONTATO</p>
+      <h2 id="contato-titulo">Uma boa conversa pode<br>ser o próximo <em>começo.</em></h2>
+      <p>Vamos trocar ideias sobre tecnologia, projetos e oportunidades?</p>
+      <div class="actions"><a class="button primary" href="https://www.linkedin.com/in/mateus-fernandes-574981320/"
+          target="_blank" rel="noopener noreferrer">Conversar no LinkedIn ↗<span class="sr-only"> (abre em nova
+            aba)</span></a><a class="button outline" href="https://github.com/MateusPsf" target="_blank"
+          rel="noopener noreferrer">Meu GitHub ↗<span class="sr-only"> (abre em nova aba)</span></a></div>
+    </section>
+  </main>
+  <footer class="wrap"><a class="brand" href="#inicio">mf<span>.</span></a>
+    <p>© <span th:text="${ano}">2026</span> <span th:text="${nome}">Mateus Fernandes</span>. Feito com dedicação.</p><a
+      href="#inicio">Voltar ao topo ↑</a>
+  </footer>
+</body>
+
+</html>
